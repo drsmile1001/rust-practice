@@ -1,4 +1,9 @@
-fn main() {
-    let some_u8_value = Some(0u8);
-    if let Some(3) = some_u8_value {}
-}
+mod define_enum;
+mod fibonacci_number;
+mod front_of_house;
+mod guess_number;
+mod match_coins;
+mod struct_practice;
+mod temperature_converter;
+
+fn main() {}
