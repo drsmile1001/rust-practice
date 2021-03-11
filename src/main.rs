@@ -1,4 +1,5 @@
 mod define_enum;
+mod employee_management;
 mod fibonacci_number;
 mod front_of_house;
 mod guess_number;
