@@ -9,7 +9,12 @@
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
-      "environment": [],
+      "environment": [
+        {
+          "name": "RUST_BACKTRACE",
+          "value": "1"
+        }
+      ],
       "preLaunchTask": "build",
       "console": "externalTerminal"
     },
