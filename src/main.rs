@@ -7,6 +7,7 @@ mod hashmap_practice;
 mod match_coins;
 mod number_set;
 mod pig_latin;
+mod recoverable_errors;
 mod string_practice;
 mod temperature_converter;
 
