@@ -2,6 +2,8 @@ extern crate rand;
 use rand::Rng;
 use std::{cmp::Ordering, io};
 
+mod guess;
+
 fn guess_number() {
     println!("Guess the number!");
 
