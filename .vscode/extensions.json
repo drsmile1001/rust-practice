@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "serayuzgur.crates",
+        "bungcip.better-toml",
+        "ms-vscode.cpptools",
+        "matklad.rust-analyzer"
+    ]
+}
