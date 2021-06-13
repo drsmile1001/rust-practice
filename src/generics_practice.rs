@@ -28,15 +28,23 @@ use core::num;
 //     largest
 // }
 
-///泛型座標點
+///泛型結構範例
 struct Point<T> {
     x: T,
     y: T,
 }
 
+///為泛型結構實踐方法
 impl<T> Point<T> {
     fn x(&self) -> &T {
         &self.x
+    }
+}
+
+///為泛型結構的特定型別實踐方法
+impl Point<f64> {
+    fn distance_from_origin(&self) -> f64 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
 }
 
@@ -45,4 +53,5 @@ pub(crate) fn run() -> () {
     let float = Point { x: 1.0, y: 4.0 };
 
     println!("p.x = {}", interger.x());
+    println!("p distance from origin = {}", float.distance_from_origin())
 }
