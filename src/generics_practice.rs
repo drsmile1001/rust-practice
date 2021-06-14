@@ -1,4 +1,5 @@
 use core::num;
+use std::fmt::Display;
 
 /**
 泛型練習
@@ -76,7 +77,8 @@ pub(crate) fn run() -> () {
     };
 
     println!("1 則新聞：{} 類別：{}", news.summarize(), news.category());
-    notify(&news);
+    notify(&tweet);
+    notify_and_display(&news)
 }
 
 ///定義特徵 特徵有點像是 interface
@@ -99,6 +101,12 @@ pub struct NewsArticle {
 impl Summary for NewsArticle {
     fn summarize(&self) -> String {
         format!("{} {} 著 ({})", self.headline, self.author, self.location)
+    }
+}
+
+impl Display for NewsArticle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({})", self.content)
     }
 }
 
@@ -127,4 +135,10 @@ impl Summary for Tweet {
 ///接受型別有實作特徵的參數的方法
 pub fn notify(item: &impl Summary) {
     println!("頭條新聞! {}", item.summarize())
+}
+
+///參數型別可以是複合特徵
+pub fn notify_and_display(item: &(impl Summary + Display)) {
+    println!("summary: {}", item.summarize());
+    println!("display: {}", item);
 }
