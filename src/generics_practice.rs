@@ -45,6 +45,9 @@ pub(crate) fn run() -> () {
 
     let result = largest(&char_list);
     println!("最大字元為 {}", result);
+
+    let pair = Pair { a: 1, b: 2 };
+    pair.compare_display();
 }
 
 /// 查詢列表中最大的東西
@@ -158,5 +161,26 @@ fn create_summarizable() -> impl Summary {
         content: String::from("content"),
         reply: false,
         retweet: false,
+    }
+}
+
+struct Pair<T> {
+    a: T,
+    b: T,
+}
+
+/// 可以針對複合特徵實踐方法
+impl<T> Pair<T>
+where
+    T: Display + PartialOrd,
+{
+    fn compare_display(&self) {
+        if self.a > self.b {
+            println!("a:{} > b:{}", self.a, self.b)
+        } else if self.a < self.b {
+            println!("a:{} < b:{}", self.a, self.b)
+        } else {
+            println!("a:{} = b:{}", self.a, self.b)
+        }
     }
 }
