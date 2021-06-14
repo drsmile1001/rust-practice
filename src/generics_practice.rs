@@ -79,6 +79,9 @@ pub(crate) fn run() -> () {
     notify(&tweet);
     notify_and_display(&news);
     notify_and_display2(&news);
+
+    let some_summarizable = create_summarizable();
+    println!("some_summarizable: {}", some_summarizable.summarize());
 }
 
 ///定義特徵 特徵有點像是 interface
@@ -150,4 +153,14 @@ where
 {
     println!("summary: {}", item.summarize());
     println!("display: {}", item);
+}
+
+/// 方法可以回傳特徵
+fn create_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("user"),
+        content: String::from("content"),
+        reply: false,
+        retweet: false,
+    }
 }
