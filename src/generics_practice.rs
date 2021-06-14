@@ -76,6 +76,7 @@ pub(crate) fn run() -> () {
     };
 
     println!("1 則新聞：{} 類別：{}", news.summarize(), news.category());
+    notify(&news);
 }
 
 ///定義特徵 特徵有點像是 interface
@@ -121,4 +122,9 @@ impl Summary for Tweet {
             String::from("原文")
         }
     }
+}
+
+///接受型別有實作特徵的參數的方法
+pub fn notify(item: &impl Summary) {
+    println!("頭條新聞! {}", item.summarize())
 }
