@@ -51,6 +51,23 @@ pub(crate) fn run() -> () {
 
     //i32 是一種 Display, Display 被實作了 Notifyable
     1.notify_from_notifyable();
+
+    //生命週期問題
+
+    let string1 = String::from("很長的長字串");
+    let result;
+    let string2 = String::from("xyz");
+    //string1 string2 的生命週期不同，而 longest 的設計會導致輸出的 result 的生命週期不定。
+    result = longest(string1.as_str(), string2.as_str());
+    println!("最長的字串為 {}", result);
+
+    let novel = String::from("叫我以實瑪利。多年以前...");
+    let first_sentence = novel.split('.').next().expect("找不到'.'");
+    //i 的 part 來自 first_sentence，由於生命週期約束，i的生命週期必須不長於 first_sentence 的生命週期 novel
+    let i = ImportantExcerpt {
+        part: first_sentence,
+    };
+    println!("{}", i.part);
 }
 
 /// 查詢列表中最大的東西
@@ -197,4 +214,19 @@ impl<T: Display> Notifyable for T {
     fn notify_from_notifyable(&self) -> () {
         println!("Notice! Value is {}", self)
     }
+}
+
+/// 當函式的參數與回傳值存在複數引用時，可能會需要標註回傳值的生命週期來自誰
+/// rust 的編譯器持續改進後，這種需要提示生命週期的狀況可能會減少
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+///當結構中的欄位存在引用時，需要標記其生命週期，此詮釋代表 ImportantExcerpt 的實例不能比它持有的欄位 part 活得還久。
+struct ImportantExcerpt<'a> {
+    part: &'a str,
 }
