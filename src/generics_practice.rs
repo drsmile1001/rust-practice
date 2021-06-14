@@ -1,4 +1,4 @@
-use std::{fmt::Display, iter::Sum};
+use std::fmt::Display;
 
 /// 泛型練習
 pub(crate) fn run() -> () {
@@ -48,6 +48,9 @@ pub(crate) fn run() -> () {
 
     let pair = Pair { a: 1, b: 2 };
     pair.compare_display();
+
+    //i32 是一種 Display, Display 被實作了 Notifyable
+    1.notify_from_notifyable();
 }
 
 /// 查詢列表中最大的東西
@@ -182,5 +185,16 @@ where
         } else {
             println!("a:{} = b:{}", self.a, self.b)
         }
+    }
+}
+
+trait Notifyable {
+    fn notify_from_notifyable(&self) -> ();
+}
+
+/// 對滿足特徵界限的型別實作特徵（毯子實作）類似 extension method
+impl<T: Display> Notifyable for T {
+    fn notify_from_notifyable(&self) -> () {
+        println!("Notice! Value is {}", self)
     }
 }
