@@ -1,5 +1,4 @@
-use core::num;
-use std::fmt::Display;
+use std::{fmt::Display, iter::Sum};
 
 /**
 泛型練習
@@ -78,7 +77,8 @@ pub(crate) fn run() -> () {
 
     println!("1 則新聞：{} 類別：{}", news.summarize(), news.category());
     notify(&tweet);
-    notify_and_display(&news)
+    notify_and_display(&news);
+    notify_and_display2(&news);
 }
 
 ///定義特徵 特徵有點像是 interface
@@ -139,6 +139,15 @@ pub fn notify(item: &impl Summary) {
 
 ///參數型別可以是複合特徵
 pub fn notify_and_display(item: &(impl Summary + Display)) {
+    println!("summary: {}", item.summarize());
+    println!("display: {}", item);
+}
+
+/// 使用 where 表示特徵界限
+pub fn notify_and_display2<T>(item: &T)
+where
+    T: Summary + Display,
+{
     println!("summary: {}", item.summarize());
     println!("display: {}", item);
 }
